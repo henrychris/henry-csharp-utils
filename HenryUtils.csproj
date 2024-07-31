@@ -5,16 +5,18 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <OutputType>Library</OutputType>
-        <IsPackable>true</IsPackable>
     </PropertyGroup>
 
-    <ItemGroup>
-        <EditorConfigFiles Remove="C:\Users\Ihenacho\Documents\GitHub\HenryUtils\.editorconfig" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="C:\Users\Ihenacho\Documents\GitHub\HenryUtils\.editorconfig" />
-    </ItemGroup>
+    <PropertyGroup>
+        <RepositoryUrl>https://github.com/henrychris/henry-csharp-utils</RepositoryUrl>
+        <IsPackable>true</IsPackable>
+        <Title>Henry's Csharp Utils</Title>
+        <Authors>Henry Ihenacho</Authors>
+        <Description>
+            A collection of code I reuse in my projects.
+        </Description>
+        <Version>0.0.1</Version>
+    </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
