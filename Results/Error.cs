@@ -49,6 +49,6 @@
         Conflict,
         Failure,
         Unauthorized,
-        Unexpected
+        Unexpected,
     }
 }

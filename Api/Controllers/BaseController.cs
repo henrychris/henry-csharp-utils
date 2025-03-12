@@ -80,7 +80,7 @@ public abstract class BaseController : ControllerBase
             ErrorType.Unauthorized => "Unauthorized access.",
             ErrorType.ServerError => "An internal server error occurred.",
             ErrorType.Unexpected => "An unexpected error occurred.",
-            _ => "An error occurred."
+            _ => "An error occurred.",
         };
     }
 
@@ -94,7 +94,7 @@ public abstract class BaseController : ControllerBase
             ErrorType.Failure => StatusCodes.Status400BadRequest,
             ErrorType.Unauthorized => StatusCodes.Status401Unauthorized,
             ErrorType.ServerError => StatusCodes.Status500InternalServerError,
-            _ => StatusCodes.Status500InternalServerError
+            _ => StatusCodes.Status500InternalServerError,
         };
     }
 }
