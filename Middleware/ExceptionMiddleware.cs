@@ -26,15 +26,19 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         var type = ex.GetType().Name;
         var error = ex.Message;
         var msg = $"""
-            Something went wrong.
-            =================================
-            ENDPOINT: {http}
-            METHOD: {httpMethod}
-            TYPE: {type}
-            REASON: {error}
-            ---------------------------------
-            {ex.StackTrace}
-            """;
+Something went wrong.
+=================================
+ENDPOINT: {http}
+METHOD: {httpMethod}
+TYPE: {type}
+REASON: {error}
+---------------------------------
+STACK TRACE:
+{ex.StackTrace}
+-------------------------------
+INNER EXCEPTION
+{ex.InnerException}
+""";
         logger.LogError("{@msg}", msg);
     }
 
@@ -45,7 +49,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
 
         var errors = new List<ApiError>
         {
-            new() { Code = "System.InternalError", Description = "Something went wrong. Please reach out to an admin." }
+            new() { Code = "System.InternalError", Description = "Something went wrong. Please reach out to an admin." },
         };
 
         var response = new ApiErrorResponse(errors, "Something went wrong. Please reach out to an admin.");
