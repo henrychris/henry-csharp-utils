@@ -90,3 +90,21 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IRepository
         }
 }
 ```
+
+## Updating
+
+### Add Source
+
+```bash
+    dotnet nuget add source --username henrychris --password YOUR_GITHUB_PAT --store-password-in-clear-text --name henrychris-github "https://nuget.pkg.github.com/henrychris/index.json"
+```
+
+### Pack and Push
+
+```bash
+    dotnet pack --configuration Release
+```
+
+```bash
+    dotnet nuget push "bin/Release/HenryUtils.0.0.2.nupkg" --api-key YOUR_GITHUB_PAT --source "henrychris-github"
+```
