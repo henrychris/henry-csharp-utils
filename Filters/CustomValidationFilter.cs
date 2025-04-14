@@ -23,7 +23,7 @@ public class CustomValidationFilter : IActionFilter
             "One or more validation errors occurred."
         );
 
-        context.Result = new ObjectResult(customErrorResponse) { StatusCode = StatusCodes.Status400BadRequest };
+        context.Result = new ObjectResult(customErrorResponse) { StatusCode = StatusCodes.Status422UnprocessableEntity };
     }
 
     public void OnActionExecuted(ActionExecutedContext context)
