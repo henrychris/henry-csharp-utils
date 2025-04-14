@@ -106,5 +106,5 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IRepository
 ```
 
 ```bash
-    dotnet nuget push "bin/Release/HenryUtils.0.0.2.nupkg" --api-key YOUR_GITHUB_PAT --source "henrychris-github"
+    dotnet nuget push "bin/Release/HenryUtils.0.0.3.nupkg" --api-key YOUR_GITHUB_PAT --source "henrychris-github"
 ```
