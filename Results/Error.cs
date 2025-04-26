@@ -38,6 +38,11 @@
         {
             return new(code, description, ErrorType.Unexpected);
         }
+
+        public static Error Forbidden(string code, string description)
+        {
+            return new(code, description, ErrorType.Forbidden);
+        }
     }
 
     public enum ErrorType
@@ -50,5 +55,6 @@
         Failure,
         Unauthorized,
         Unexpected,
+        Forbidden,
     }
 }

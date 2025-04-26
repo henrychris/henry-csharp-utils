@@ -80,6 +80,7 @@ public abstract class BaseController : ControllerBase
             ErrorType.Unauthorized => "Unauthorized access.",
             ErrorType.ServerError => "An internal server error occurred.",
             ErrorType.Unexpected => "An unexpected error occurred.",
+            ErrorType.Forbidden => "Access denied.",
             _ => "An error occurred.",
         };
     }
@@ -88,11 +89,12 @@ public abstract class BaseController : ControllerBase
     {
         return errorType switch
         {
-            ErrorType.NotFound => StatusCodes.Status404NotFound,
-            ErrorType.Validation => StatusCodes.Status422UnprocessableEntity,
-            ErrorType.Conflict => StatusCodes.Status409Conflict,
             ErrorType.Failure => StatusCodes.Status400BadRequest,
             ErrorType.Unauthorized => StatusCodes.Status401Unauthorized,
+            ErrorType.Forbidden => StatusCodes.Status403Forbidden,
+            ErrorType.NotFound => StatusCodes.Status404NotFound,
+            ErrorType.Conflict => StatusCodes.Status409Conflict,
+            ErrorType.Validation => StatusCodes.Status422UnprocessableEntity,
             ErrorType.ServerError => StatusCodes.Status500InternalServerError,
             _ => StatusCodes.Status500InternalServerError,
         };
