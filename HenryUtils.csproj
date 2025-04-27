@@ -15,7 +15,7 @@
         <Description>
             A collection of code I reuse in my projects.
         </Description>
-        <Version>0.0.4</Version>
+        <Version>0.0.5</Version>
     </PropertyGroup>
 
     <ItemGroup>
