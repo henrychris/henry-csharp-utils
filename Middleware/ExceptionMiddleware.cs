@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using FluentValidation;
 using HenryUtils.Api.Responses;
 
 namespace HenryUtils.Middleware;
@@ -11,12 +12,28 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         {
             await next(httpContext);
         }
-        // can catch specific exceptions here.
-        catch (Exception ex)
+        catch (ValidationException validationException)
         {
-            LogException(httpContext, ex);
+            await HandleValidationExceptions(httpContext, validationException);
+            return;
+        }
+        catch (Exception exception)
+        {
+            LogException(httpContext, exception);
             await HandleExceptionAsync(httpContext);
         }
+    }
+
+    private async Task HandleValidationExceptions(HttpContext httpContext, ValidationException validationException)
+    {
+        logger.LogError("A validation exception occurred: {message}", validationException.Message);
+        var apiErrors = validationException
+            .Errors.Select(error => new ApiError { Code = error.ErrorCode, Description = error.ErrorMessage })
+            .ToList();
+
+        var response = new ApiErrorResponse(apiErrors, "One or more validation errors occurred");
+        httpContext.Response.StatusCode = StatusCodes.Status422UnprocessableEntity;
+        await httpContext.Response.WriteAsJsonAsync(response);
     }
 
     private void LogException(HttpContext httpContext, Exception ex)
