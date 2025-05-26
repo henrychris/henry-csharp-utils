@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace HenryUtils.Api.Controllers;
 
 [ApiController]
-[TypeFilter(typeof(CustomValidationFilter))]
 [Route("api/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status500InternalServerError)]
