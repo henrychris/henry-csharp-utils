@@ -4,9 +4,9 @@ namespace HenryUtils.Pagination;
 
 public class PagedResponse<T>
 {
-    public IEnumerable<T> Items { get; set; } = null!;
-    private int CurrentPage { get; init; }
-    private int TotalPages { get; init; }
+    public IEnumerable<T> Items { get; set; } = [];
+    public int CurrentPage { get; init; }
+    public int TotalPages { get; init; }
     public int PageSize { get; set; }
     public int TotalCount { get; set; }
     public bool HasPrevious => CurrentPage > 1;
@@ -14,16 +14,21 @@ public class PagedResponse<T>
 
     public async Task<PagedResponse<T>> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
     {
-        var count = source.Count();
+        var count = await source.CountAsync();
         var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
 
+        return Create(items, count, pageNumber, pageSize);
+    }
+
+    public static PagedResponse<T> Create(IEnumerable<T> items, int totalCount, int pageNumber, int pageSize)
+    {
         return new PagedResponse<T>
         {
             Items = items,
-            TotalCount = count,
+            TotalCount = totalCount,
             PageSize = pageSize,
             CurrentPage = pageNumber,
-            TotalPages = (int)Math.Ceiling(count / (double)pageSize),
+            TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize),
         };
     }
 }
